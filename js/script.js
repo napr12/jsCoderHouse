@@ -18,38 +18,49 @@ function sumar(importe) {
   return ("El saldo actual es de " + registro.saldo);
 
 }
+const main = document.getElementById("main");
 let nombre = prompt("Ingrese su nombre");
-let importe = parseInt(prompt("Ingrese el dinero que dispone"));
-const registro = new Persona(nombre, importe);
-
+let importe = document.getElementById("monto");
 const movimientos = new Array();
+const registro = new Persona(nombre, importe); 
+let alert= document.createElement("div");
+alert.innerHTML =`<div class="alert alert-danger d-flex align-items-center" role="alert">
+<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+<div>
+  El importe a ingresar no puede ser menor a 0
+</div>
+</div>`
 if (importe >= 0) {
+  main.appendChild()
   movimientos.push(importe);
 } else {
-  console.log("Debe ingresar un valor mayor a 0");
+  alert("Debe ingresar un valor mayor a 0");
 }
-let operacion = parseInt(prompt("Desea realizar alguna operación\n 0)-no\n 1) si"));
 
-while (operacion === 1) {
-  let tipo = parseInt(prompt("Si desea agregar credito ingrese 0 si desea restar ingrese 1"));
 
-  if (tipo === 0) {
-      importe = parseInt(prompt("Ingrese el valor de la operación realizada"));
 
-      console.log(sumar(importe));
+// let operacion = parseInt(prompt("Desea realizar alguna operación\n 0)-no\n 1) si"));
 
-      movimientos.push(importe);
-  } else if (tipo === 1) {
-      importe = parseInt(prompt("Ingrese el valor de la operación realizada"));
-      console.log(restar(importe));
+// while (operacion === 1) {
+//   let tipo = parseInt(prompt("Si desea agregar credito ingrese 0 si desea restar ingrese 1"));
 
-      movimientos.push(-importe);
-  } else {
-      console.log("No ingreso una opción valida");
-  }
+//   if (tipo === 0) {
+//       importe = parseInt(prompt("Ingrese el valor de la operación realizada"));
 
-  operacion = parseInt(prompt("Si desea continuar ingresando operaciones ingrese 1"));
-}
+//       console.log(sumar(importe));
+
+//       movimientos.push(importe);
+//   } else if (tipo === 1) {
+//       importe = parseInt(prompt("Ingrese el valor de la operación realizada"));
+//       console.log(restar(importe));
+
+//       movimientos.push(-importe);
+//   } else {
+//       console.log("No ingreso una opción valida");
+//   }
+
+//   operacion = parseInt(prompt("Si desea continuar ingresando operaciones ingrese 1"));
+// }
 
 for (let i = 0; i < movimientos.length; i++) {
   console.log("El movimiento " + i + " es de $ " + movimientos[i]);
