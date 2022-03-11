@@ -19,25 +19,39 @@ function sumar(importe) {
 
 }
 const main = document.getElementById("main");
-let nombre = prompt("Ingrese su nombre");
 let importe = document.getElementById("monto");
+let nombre = "Nahuel";
 const movimientos = new Array();
 const registro = new Persona(nombre, importe); 
-let alert= document.createElement("div");
-alert.innerHTML =`<div class="alert alert-danger d-flex align-items-center" role="alert">
+let alerta= `<div class="alert alert-danger d-flex align-items-center" role="alert">
 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-<div>
-  El importe a ingresar no puede ser menor a 0
+<div >
+  
 </div>
-</div>`
+</div>`;
+
+let ingreso = document.getElementById("ingreso");
+ingreso.onclick = () => {sumar(importe)};
+
+let egreso = document.getElementById("egreso");
+egreso.onclick = () => {restar(importe)};
+
+// let eliminar = document.getElementById("eliminar");
+
+
+
 if (importe >= 0) {
-  main.appendChild()
+  main.appendChild(alerta);
   movimientos.push(importe);
 } else {
   alert("Debe ingresar un valor mayor a 0");
 }
 
+for (let i = 0; i < movimientos.length; i++) {
+  console.log("El movimiento " + i + " es de $ " + movimientos[i]);
+}
 
+console.log(registro);
 
 // let operacion = parseInt(prompt("Desea realizar alguna operación\n 0)-no\n 1) si"));
 
@@ -62,8 +76,3 @@ if (importe >= 0) {
 //   operacion = parseInt(prompt("Si desea continuar ingresando operaciones ingrese 1"));
 // }
 
-for (let i = 0; i < movimientos.length; i++) {
-  console.log("El movimiento " + i + " es de $ " + movimientos[i]);
-}
-
-console.log(registro);
