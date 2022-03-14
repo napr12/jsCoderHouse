@@ -52,6 +52,7 @@
       </nav>
     </header>
     <main class="main" id="main">
+      <div id="liveAlertPlaceholder"></div>
       <section class="main__section mt-5">
         <fieldset class="main__section__fieldset">
           <form action="" class="main__section__form container">
@@ -72,9 +73,9 @@
               class="input-group mb-3 row mt-5 "
             >
               <span class="input-group-text col-1">$</span>
-              <span class="input-group-text col-1">0.00</span>
+              <span class="input-group-text col-1" id="saldo">0.00</span>
               <input
-                type="text"
+                type="number"
                 class="form-control col-1"
                 aria-label="Dollar amount (with dot and two decimal places)"
                 id="monto"
@@ -102,6 +103,6 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <!-- <script src="./js/script.js"></script> -->
+    <script src="./js/script.js"></script>
   </body>
 </html>
