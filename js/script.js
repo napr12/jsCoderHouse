@@ -33,22 +33,24 @@ let importe = parseInt(document.getElementById("monto").value);
 let saldo =document.getElementById("saldo").value;
 let nombre = "Nahuel";
 const movimientos = new Array();
-const registro = new Persona(nombre, importe); 
+const registro = new Persona(nombre, 0); 
 var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 var alertTrigger = document.getElementById('ingreso')
 
 
-ingreso.onclick = () => { 
-    alert(sumar(importe), 'success')
+ingreso.onclick = function(){ 
+    importe= parseInt(document.getElementById("monto").value);
+    alert(sumar(importe), 'success');
   };
 
 let egreso = document.getElementById("egreso");
-egreso.onclick = () => {let resultado= restar(importe);
-                        if('Saldo insuficiente para la operación'==resultado){
-                          alert(resultado,'danger')
-                        }else{
-                          alert(resultado,'success')
-                        }
+egreso.onclick = function (){parseInt(document.getElementById("monto").value)
+                            let resultado= restar(importe);
+                            if('Saldo insuficiente para la operación'==resultado){
+                              alert(resultado,'danger')
+                            }else{
+                              alert(resultado,'success')
+                           }
   };
 
 
@@ -56,3 +58,5 @@ egreso.onclick = () => {let resultado= restar(importe);
 for (let i = 0; i < movimientos.length; i++) {
   console.log("El movimiento " + i + " es de $ " + movimientos[i]);
 }
+
+
