@@ -1,6 +1,11 @@
 function Persona(nombre, saldo) {
+  this.id;
+  if(this.id==undefined){
+    this.id=1;
+  }else{
+    this.id+=1;
+  }
   this.nombre = nombre;
-
   this.saldo = saldo;
 }
 
@@ -11,9 +16,32 @@ function alert(message, type) {
   alertPlaceholder.append(wrapper)
 }
 
+function controlAlert(valor){
+  let resultado= restar(valor);
+  if('Saldo insuficiente para la operación'== resultado){
+    alert(resultado,'danger')
+  }else{
+   alert(resultado,'success')
+  }
+}
+
+function crearUsuario(nombre, salario){
+  console.log("ingreso");
+  registro = new Persona (nombre, salario);
+  registroJson = JSON.stringify(registro);
+  localStorage.setItem(`Persona${registro.id}`,registroJson);
+  localStorage.setItem(`PersonaActiva`, registroJson);
+  return(`Se dio de alta correctamente el usuario ${registro.nombre}`);
+}
+
+function agregarTabla(valor){
+
+}
+
 function restar(valor) {
+  registro=JSON.parse(localStorage.getItem('PersonaActiva'));
   if (registro.saldo >= valor) {
-      registro.saldo = registro.saldo - valor;
+      registro.saldo -= valor;
       return (`El saldo actual es de ${registro.saldo}`);
   } else {
       return ( `Saldo insuficiente para la operación`);
@@ -23,7 +51,7 @@ function restar(valor) {
 function sumar(valor) {
   console.log(registro)
   registro.saldo += parseInt(valor);
-  return (` El saldo actual es de ${registro.saldo}`);
+  return (`El saldo actual es de ${registro.saldo}`);
 
 }
 
@@ -31,29 +59,24 @@ function sumar(valor) {
 const main = document.getElementById("main");
 let importe = parseInt(document.getElementById("monto").value);
 let saldo =document.getElementById("saldo").value;
-let nombre = "Nahuel";
+
 const movimientos = new Array();
-const registro = new Persona(nombre, 0); 
+
 var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-var alertTrigger = document.getElementById('ingreso')
+var ingreso = document.getElementById('ingreso')
 
 
-ingreso.onclick = function(){ 
-    importe= parseInt(document.getElementById("monto").value);
-    alert(sumar(importe), 'success');
+ingreso.onclick = ()=>{ 
+    alert(sumar(parseInt(document.getElementById("monto").value)), 'success');
   };
 
 let egreso = document.getElementById("egreso");
-egreso.onclick = function (){parseInt(document.getElementById("monto").value)
-                            let resultado= restar(importe);
-                            if('Saldo insuficiente para la operación'==resultado){
-                              alert(resultado,'danger')
-                            }else{
-                              alert(resultado,'success')
-                           }
-  };
+egreso.onclick = () =>{controlAlert(parseInt(document.getElementById("monto").value))};
 
-
+let ingresoUsuario =document.getElementById("ingresaUsuario");
+ingresoUsuario.onclick = () =>{
+    alert(crearUsuario(document.getElementById('nombre').value , parseInt(document.getElementById('salario').value)), 'success');
+}
 
 for (let i = 0; i < movimientos.length; i++) {
   console.log("El movimiento " + i + " es de $ " + movimientos[i]);

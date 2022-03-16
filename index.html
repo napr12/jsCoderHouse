@@ -59,18 +59,45 @@
             <div
               class="main__section__form__row row d-flex justify-content-between"
             >
-              <button type="button" id="ingreso"class="btn btn-success col-sm-3">
+              <button type="button" id="ingreso"class="btn btn-success col-sm-2">
                 Ingreso
               </button>
-              <button type="button" id="egreso" class="btn btn-warning col-sm-3">
+              <button type="button" id="egreso" class="btn btn-warning col-sm-2">
                 Egreso
               </button>
-              <button type="button" id="eliminar" class="btn btn-danger col-sm-3">
+              <button type="button" id="eliminar" class="btn btn-danger col-sm-2">
                 Borrar
               </button>
+              <button type="button" class="btn btn-primary col-sm-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Ingresar nombre</button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Registro persona</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label">Nombre:</label>
+                          <input type="text" class="form-control" id="nombre">
+                        </div>
+                        <div class="mb-3">
+                          <label for="message-text" class="col-form-label">Salario</label>
+                          <input type="number" class="form-control" id="salario">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary" id="ingresaUsuario">Ingresar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div
-              class="input-group mb-3 row mt-5 "
+              class="input-group mb-3 row mt-5"
             >
               <span class="input-group-text col-1">$</span>
               <span class="input-group-text col-1" id="saldo">0.00</span>
@@ -81,8 +108,8 @@
                 id="monto"
               />
             </div>
-            <div>
-              <select class="form-select" aria-label="Default select example">
+            <div class="input-group mb-3 row mt-5">
+              <select class="form-select col-sm" aria-label="Default select example" required="required">
                 <option selected>Tipo gasto</option>
                 <option value="1">Comida</option>
                 <option value="2">Ropa  </option>
@@ -95,6 +122,23 @@
             </div>
           </form>
         </fieldset>
+      </section>
+      <section class="main__section mt-5 container ">
+        <article class="main__section__article">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fecha hora</th>
+                <th scope="col">Tipo movimiento</th>
+                <th scope="col">Importe</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+          </table>
+        </article>
       </section>
     </main>
     <footer class="footer"></footer>
