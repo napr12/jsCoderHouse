@@ -9,6 +9,21 @@ function Persona(nombre, saldo) {
   this.nombre = nombre;
   this.saldo = saldo;
 }
+function Movimiento(idPersona,monto){
+  this.idPersona=idPersona;
+  this.idMovimiento= JSON.parse(localStorage.getItem("Movimiento"));
+  if (this.idMovimiento.idMovimiento==null){
+    this.idMovimiento.idMovimiento=1;
+  }else{
+    this.idMovimiento.idMovimiento++;
+  }
+}
+function crearMovimiento(monto){
+  let idPersona= JSON.parse(localStorage.getItem("PersonaActiva"));
+  let dinero=monto;
+  return(Movimiento(idPersona.id, dinero));
+
+}
 
 function alert(message, type) {
   let wrapper = document.createElement('div')
@@ -30,13 +45,27 @@ function crearUsuario(nombre, salario){
   console.log("ingreso");
   let registro = new Persona (nombre, salario);
   let registroJson = localStorage.getItem("Persona");
-  registroJson += JSON.stringify(registro); 
+  if(registroJson==null){
+    registroJson == JSON.stringify(registro);  
+  }else{
+    registroJson += JSON.stringify(registro);
+  }
   localStorage.setItem(`Persona`,registroJson);
   localStorage.setItem(`PersonaActiva`, JSON.stringify(registro));
   return(`Se dio de alta correctamente el usuario ${registro.nombre}`);
 }
 
 function agregarTabla(valor){
+  let body = document.getElementById("tbody");
+  let tr =document.createElement("tr");
+  let personaActiva = JSON.parse(localStorage.getItem("PersonaActiva"));
+
+  tr.innerHTML(`
+    <th scope="row">1</th>
+    <td>Mark</td>
+    <td>Otto</td>
+    <td>@mdo</td>
+  `);
 
 }
 
@@ -54,6 +83,7 @@ function restar(valor) {
 function sumar(valor) {
   registro=JSON.parse(localStorage.getItem('PersonaActiva'));
   registro.saldo += parseInt(valor);
+  //agregarTabla(parseInt(valor));
   localStorage.setItem(`PersonaActiva`,JSON.stringify(registro));
   return (`El saldo actual es de ${registro.saldo}`);
 
