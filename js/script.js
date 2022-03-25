@@ -14,33 +14,44 @@ function Persona(nombre, saldo) {
 }
 function Movimiento(idPersona,monto){
   this.idPersona=idPersona;
-  this.idMovimiento= JSON.parse(localStorage.getItem("Movimiento"));
-  if (this.idMovimiento.idMovimiento==null){
-    this.idMovimiento.idMovimiento=1;
+  this.monto=monto;
+  this.idMovimiento;
+  const movimientoAnterior = JSON.parse(localStorage.getItem("Movimiento"));
+  if (this.idMovimiento==null){
+    this.idMovimiento=1;
   }else{
-    this.idMovimiento.idMovimiento++;
+    this.idMovimiento = movimientoAnterior.idMovimiento + 1 ;
   }
+  
 }
 function crearMovimiento(monto){
   let idPersona= JSON.parse(localStorage.getItem("PersonaActiva"));
-  let dinero=monto;
-  return(Movimiento(idPersona.id, dinero));
+  const jsonMoviemiento = JSON.parse(localStorage.getItem("Movimiento"));
+  let registro = new Movimiento(idPersona.id, monto); 
+  const registroJson = [];
+  if(jsonMoviemiento == null){
+    registroJson[0]= registro;
+  }else{
+    for(let i=0; i<jsonMoviemiento.length; i++){
+        registroJson [i] = jsonMoviemiento[i];
+        registroJson.push(registro);
+    }
 
-}
+  }
+  return(registro);
 
-function alert(message, type) {
-  let wrapper = document.createElement('div')
-  wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
-
-  alertPlaceholder.append(wrapper)
 }
 
 function controlAlert(valor){
   let resultado= restar(valor);
   if('Saldo insuficiente para la operación'== resultado){
-    alert(resultado,'danger')
+    Toastify({ text: resultado, className: "danger", style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    }}).showToast();
   }else{
-   alert(resultado,'success')
+    Toastify({ text: resultado, className: "success", style: {
+      background: "linear-gradient(to right, #00b09b, #96c93d)",
+    }}).showToast();
   }
 }
 
@@ -107,8 +118,10 @@ let egreso = document.getElementById("egreso");
 let ingresoUsuario =document.getElementById("ingresaUsuario");
 
 //Eventos
-ingreso.onclick = ()=> alert(sumar(parseInt(document.getElementById("monto").value)), 'success');
+ingreso.onclick = ()=> Toastify({ text: sumar(parseInt(document.getElementById("monto").value)), className: "success", style: {
+  background: "linear-gradient(to right, #00b09b, #96c93d)",
+}}).showToast();
 egreso.onclick = () => controlAlert(parseInt(document.getElementById("monto").value));
-ingresoUsuario.onclick = () => alert(crearUsuario(document.getElementById('nombre').value , parseInt(document.getElementById('salario').value)), 'success');
-
-
+ingresoUsuario.onclick = () => Toastify({ text: crearUsuario(document.getElementById('nombre').value , parseInt(document.getElementById('salario').value)), className: "success", style: {
+  background: "linear-gradient(to right, #00b09b, #96c93d)",
+}}).showToast();
