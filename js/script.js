@@ -16,6 +16,7 @@ function Movimiento(idPersona,monto){
   this.idPersona=idPersona;
   this.monto=monto;
   this.idMovimiento;
+  this.tipoMovimiento = document.getElementById("tipoMovimiento");
   const movimientoAnterior = JSON.parse(localStorage.getItem("Movimiento"));
   if (this.idMovimiento==null){
     this.idMovimiento=1;
@@ -38,7 +39,7 @@ function crearMovimiento(monto){
     }
 
   }
-  return(registro);
+  return(JSON.stringify(registroJson));
 
 }
 
@@ -73,17 +74,22 @@ function crearUsuario(nombre, salario){
   return(`Se dio de alta correctamente el usuario ${registro.nombre}`);
 }
 
-function agregarTabla(valor){
+function agregarTabla(){
   let body = document.getElementById("tbody");
   let tr = document.createElement("tr");
   let personaActiva = JSON.parse(localStorage.getItem("PersonaActiva"));
-
-  tr.innerHTML(`
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td>Otto</td>
-    <td>@mdo</td>
-  `);
+  let jsonMoviemiento = JSON.parse(localStorage.getItem("Movimiento"));
+  for(let i = 0; i < jsonMoviemiento.length; i++){
+    if(personaActiva.id === jsonMoviemiento[i].idPersona){
+      tr.append(`
+      <th scope="row">${jsonMoviemiento[i].idMovimiento}</th>
+      <td>${date()}</td>
+      <td>${jsonMoviemiento[i].tipoMovimiento}</td>
+      <td>${jsonMoviemiento[i].monto}</td>
+    `);
+    }
+  }
+  body.innerHTML(tr);
 
 }
 
@@ -92,6 +98,8 @@ function restar(valor) {
   if (registro.saldo >= valor) {
       registro.saldo -= valor;
       localStorage.setItem(`PersonaActiva`,JSON.stringify(registro));
+      localStorage.setItem(`Movimiento`,crearMovimiento(registro));
+      agregarTabla();
       return (`El saldo actual es de ${registro.saldo}`);
   } else {
       return ( `Saldo insuficiente para la operación`);
@@ -101,8 +109,10 @@ function restar(valor) {
 function sumar(valor) {
   registro=JSON.parse(localStorage.getItem('PersonaActiva'));
   registro.saldo += parseInt(valor);
-  //agregarTabla(parseInt(valor));
+
   localStorage.setItem(`PersonaActiva`,JSON.stringify(registro));
+  localStorage.setItem(`Movimiento`,crearMovimiento(registro));
+  agregarTabla();
   return (`El saldo actual es de ${registro.saldo}`);
 
 }
